@@ -26,7 +26,7 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-ins
   && npm install -g yarn
 
 # Install wkhtmltox correctly
-RUN wget https://github.com/jimmyrianto/wkhtmltopdf/wkhtmltox_0.12.5-1.stretch_amd64.deb
+RUN wget https://raw.githubusercontent.com/jimmyrianto/wkhtmltopdf/master/wkhtmltox_0.12.5-1.stretch_amd64.deb
 RUN dpkg -i wkhtmltox_0.12.5-1.stretch_amd64.deb && rm wkhtmltox_0.12.5-1.stretch_amd64.deb
 
 # Add frappe user and setup sudo
