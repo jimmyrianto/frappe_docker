@@ -9,7 +9,7 @@ services:
     
     volumes:
       - ./conf/mariadb-conf.d:/etc/mysql/conf.d
-      - /var/lib/mysql
+      - ./maria_db/data:/var/lib/mysql
     
     ports:
       - "3307:3306" # MariaDB Port
