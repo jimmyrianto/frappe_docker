@@ -12,12 +12,15 @@ services:
       - ./maria_db/data:/var/lib/mysql
     
     ports:
-      - "3307:3306" # MariaDB Port
+      - "3306:3306" # MariaDB Port
     
     container_name: mariadb
 
   redis-cache:
     image: redis:alpine
+
+    ports:
+      - "13000:13000"
 
     volumes:
       - ./conf/redis-conf.d:/etc/conf.d
@@ -29,6 +32,8 @@ services:
   redis-queue:
     image: redis:alpine
 
+    ports:
+      - "11000:11000"
 
     volumes:
       - ./conf/redis-conf.d:/etc/conf.d
@@ -39,6 +44,9 @@ services:
 
   redis-socketio:
     image: redis:alpine
+
+    ports:
+      - "12000:12000"
 
     volumes:
       - ./conf/redis-conf.d:/etc/conf.d
