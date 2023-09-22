@@ -1,13 +1,13 @@
 # Frappe Bench Dockerfile
 
 # FROM debian:9.6-slim
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 LABEL author=frappé
 
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends locales \
-  && sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
-  && dpkg-reconfigure --frontend=noninteractive locales \
-  && apt-get clean && rm -rf /var/lib/apt/lists/*
+    && sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
+    && dpkg-reconfigure --frontend=noninteractive locales \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Set locale en_us.UTF-8 for mariadb and general locale data
 ENV PYTHONIOENCODING=utf-8
@@ -22,17 +22,20 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-ins
     libwebp-dev libxext6 libxrender1 libxslt1-dev libxslt1.1 ntpdate postfix python-tk screen \
     vim xfonts-75dpi xfonts-base zlib1g-dev apt-transport-https libsasl2-dev libldap2-dev libcups2-dev pv libjpeg8-dev \
     libtiff5-dev tcl8.6-dev tk8.6-dev libdate-manip-perl logwatch wget libjpeg-turbo8-dev iputils-ping libmariadb-dev \
-    libmariadbclient-dev libssl-dev mariadb-client python3-tk redis-tools rlwrap software-properties-common sudo wkhtmltopdf \
+    libmariadb-dev-compat libmariadb-dev libssl-dev mariadb-client python3-tk redis-tools rlwrap software-properties-common sudo wkhtmltopdf \
     fonts-cantarell
 # libmysqlclient-dev  
-  
+
 # install node js
 RUN python3 -m pip install --upgrade setuptools cryptography psutil
-RUN curl -sL https://deb.nodesource.com/setup_12.x -o nodesource_setup.sh 
+RUN curl -sL https://deb.nodesource.com/setup_16.x -o nodesource_setup.sh 
 RUN apt install gpg-agent -y
 RUN sudo bash nodesource_setup.sh 
 RUN apt install nodejs -y 
 RUN npm install -g yarn
+
+RUN wget http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.0g-2ubuntu4_amd64.deb
+RUN sudo dpkg -i libssl1.1_1.1.0g-2ubuntu4_amd64.deb
 
 # Install wkhtmltox correctly
 RUN wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.bionic_amd64.deb \
@@ -46,7 +49,8 @@ RUN groupadd -g 500 frappe \
     && chown frappe -R /home/frappe
 
 # install bench
-RUN pip3 install -e git+https://github.com/jimmyrianto/bench.git#egg=bench --no-cache
+RUN pip3 install -U frappe-bench
+#RUN pip3 install -e git+https://github.com/jimmyrianto/bench.git#egg=bench --no-cache
 # RUN echo fs.inotify.max_user_watches=524288 | tee -a /etc/sysctl.conf && sysctl -p
 
 USER frappe
