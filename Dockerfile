@@ -28,7 +28,7 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-ins
 
 # install node js
 RUN python3 -m pip install --upgrade setuptools cryptography psutil
-RUN curl -sL https://deb.nodesource.com/setup_16.x -o nodesource_setup.sh 
+RUN curl -sL https://deb.nodesource.com/setup_18.x -o nodesource_setup.sh 
 RUN apt install gpg-agent -y
 RUN sudo bash nodesource_setup.sh 
 RUN apt install nodejs -y 
