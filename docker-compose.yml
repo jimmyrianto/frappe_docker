@@ -51,7 +51,7 @@ services:
       - "8000:8000" # Webserver Port
       - "9000:9000" # Socketio Port
       - "6787:6787" # File Watcher Port
-      - "10000-10100:10000:10100"
+      - "10000-10100:10000-10100"   
     stdin_open: true
     tty: true
     links:
