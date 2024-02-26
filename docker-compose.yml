@@ -1,7 +1,7 @@
 version: '3.3'
 services:
   mariadb:
-    image: mariadb:10.3
+    image: mariadb:10.6
     restart: always
     environment:
       - MYSQL_ROOT_PASSWORD=123
@@ -13,7 +13,7 @@ services:
       - "3306:3306" # MariaDB Port    
     container_name: mariadb
   redis-cache:
-    image: redis:alpine
+    image: redis:7.2.4-alpine
     restart: always
     ports:
       - "13000:13000"
@@ -22,7 +22,7 @@ services:
     command: ["redis-server","/etc/conf.d/redis_cache.conf"]
     container_name: redis-cache
   redis-queue:
-    image: redis:alpine
+    image: redis:7.2.4-alpine
     restart: always
     ports:
       - "11000:11000"
@@ -31,7 +31,7 @@ services:
     command: ["redis-server","/etc/conf.d/redis_queue.conf"]
     container_name: redis-queue
   redis-socketio:
-    image: redis:alpine
+    image: redis:7.2.4-alpine
     restart: always
     ports:
       - "12000:12000"
