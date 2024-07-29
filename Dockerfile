@@ -27,7 +27,8 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-ins
 # libmysqlclient-dev  
   
 # install node js
-RUN python3 -m pip install --upgrade setuptools cryptography psutil
+RUN python3 -m pip install --upgrade setuptools==66.1.1
+RUN python3 -m pip install --upgrade cryptography psutil
 RUN curl -sL https://deb.nodesource.com/setup_12.x -o nodesource_setup.sh 
 RUN apt install gpg-agent -y
 RUN sudo bash nodesource_setup.sh 
