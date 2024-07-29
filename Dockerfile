@@ -46,7 +46,8 @@ RUN groupadd -g 500 frappe \
     && chown frappe -R /home/frappe
 
 # install bench
-RUN pip3 install -e git+https://github.com/jimmyrianto/bench.git#egg=bench --no-cache
+RUN pip3 install -U frappe-bench
+# RUN pip3 install -e git+https://github.com/jimmyrianto/bench.git#egg=bench --no-cache
 # RUN echo fs.inotify.max_user_watches=524288 | tee -a /etc/sysctl.conf && sysctl -p
 
 USER frappe
